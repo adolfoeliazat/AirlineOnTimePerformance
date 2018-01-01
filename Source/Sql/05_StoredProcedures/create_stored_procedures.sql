@@ -13,9 +13,9 @@ BEGIN
     
     SET NOCOUNT ON;
 
-	INSERT INTO [sample].[FlightStatisticsItem]
-	SELECT * FROM @Entities;
-	
+    INSERT INTO [sample].[FlightStatisticsItem]
+    SELECT * FROM @Entities;
+    
 END
 GO
 
