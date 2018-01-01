@@ -26,32 +26,26 @@ namespace AirlineOnTimePerformance.Csv.Converter
 
             Single? singleValue;
 
-            if (converter.TryConvert(value, out singleValue))
+            if (!converter.TryConvert(value, out singleValue))
             {
-                // If the Minutes are not given, return immediately:
-                if (!singleValue.HasValue)
-                {
-                    return true;
-                }
+                return false;
+            }
 
-                // Make sure we are in a valid range for Integer:
-                if (singleValue > int.MaxValue)
-                {
-                    return false;
-                }
-
-                if (singleValue < int.MinValue)
-                {
-                    return false;
-                }
-
-                // We can safely assume we can convert the value:
-                result = Convert.ToInt32(singleValue);
-
+            if (!singleValue.HasValue)
+            {
                 return true;
             }
 
-            return false;
+            try
+            {
+                result = Convert.ToInt32(singleValue.Value);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public Type TargetType
